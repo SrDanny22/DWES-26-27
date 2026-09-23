@@ -1,7 +1,5 @@
 <?php
-$precio = 12.95;
-$precioEntero = (int) $precio;
 
-echo $precioEntero;
-?>
+require_once __DIR__ . '/../src/funciones.php';
 
+formatearTitulo("El lobo");
