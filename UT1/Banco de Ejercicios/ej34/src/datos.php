@@ -5,7 +5,7 @@ declare(strict_types=1);
 $catalogo = [
     [
         "titulo" => "Cien años de soledad",
-        "genero" => "Realismo mágico"
+        "genero" => "Fantasía"
     ],
     [
         "titulo" => "1984",

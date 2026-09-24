@@ -2,9 +2,8 @@
 
 declare(strict_types=1);
 
-require_once __DIR__ . '/../src/datos.php';
-
 function filtrarPorGenero(array $libros, string $genero): array {
+    
     if ($genero === 'todos') {
         return $libros;
     }
@@ -12,9 +11,17 @@ function filtrarPorGenero(array $libros, string $genero): array {
     $resultado = [];
 
     foreach ($libros as $libro) {
-        if ($libro['genero'] === $genero) {
-            $resultado = [$libro];
+        if (strtolower($libro['genero']) === $genero) {
+            $resultado[] = $libro;
         }
     }
     return $resultado;
+}
+
+function fechaRevisionCatalogo():void {
+    $fechaRevision = new DateTimeImmutable();
+
+    $fechaRevisionDias = $fechaRevision->modify('+30 days');
+    
+    echo "<p>Fecha de revisión: " . $fechaRevisionDias->format('d/m/Y') . "</p>";
 }
