@@ -8,7 +8,7 @@ require_once __DIR__ . '/../src/datos.php';
 $genero = $_GET['genero'] ?? 'todos';
 $genero = strtolower(trim($genero));
 
-$librosFiltrados = filtrarPorGenero($catalogo, $genero);
+$librosFiltrados = ordenarArray(filtrarPorGenero($catalogo, $genero));
 
 echo "<h1>Titulos</h1>";
 foreach ($librosFiltrados as $libro) {

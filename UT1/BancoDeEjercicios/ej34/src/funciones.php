@@ -18,6 +18,12 @@ function filtrarPorGenero(array $libros, string $genero): array {
     return $resultado;
 }
 
+function ordenarArray(array $libros): array {
+    sort($libros);
+
+    return $libros;
+}
+
 function fechaRevisionCatalogo():void {
     $fechaRevision = new DateTimeImmutable();
 

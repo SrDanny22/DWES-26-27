@@ -26,7 +26,7 @@ $renovacion = $_GET['renovacion'] ?? 'no';
 
 // Convertimos todo en minuscula y sin espacios por si ponen Alumno o SI.
 $tipo = strtolower(trim($tipo));
-$renovacion = strtolower(trim($tipo));
+$renovacion = strtolower(trim($renovacion));
 
 // Arrays para darle valor a los valores previstos
 $tiposValidos = ['alumno', 'profesor', 'externo'];
