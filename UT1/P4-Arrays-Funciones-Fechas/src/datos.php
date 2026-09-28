@@ -3,74 +3,74 @@
 $catalogo = [
     [
         "id" => 1,
-        "titulo" => "Cien años de soledad",
-        "autor" => "Gabriel García Márquez",
-        "genero" => "Realismo mágico",
-        "paginas" => 496,
+        "titulo" => "El Nombre del Viento",
+        "autor" => "Patrick Rothfuss",
+        "genero" => "fantasia",
+        "paginas" => 872,
         "disponible" => true,
         "fechaAlta" => "2026-01-15"
     ],
     [
         "id" => 2,
-        "titulo" => "1984",
-        "autor" => "George Orwell",
-        "genero" => "Distopía",
-        "paginas" => 328,
+        "titulo" => "El Resplandor",
+        "autor" => "Stephen King",
+        "genero" => "terror",
+        "paginas" => 688,
         "disponible" => false,
         "fechaAlta" => "2026-02-10"
     ],
     [
         "id" => 3,
-        "titulo" => "El resplandor",
-        "autor" => "Stephen King",
-        "genero" => "Terror",
-        "paginas" => 688,
+        "titulo" => "Orgullo y Prejuicio",
+        "autor" => "Jane Austen",
+        "genero" => "romance",
+        "paginas" => 448,
+        "disponible" => true,
+        "fechaAlta" => "2026-02-28"
+    ],
+    [
+        "id" => 4,
+        "titulo" => "El Señor de los Anillos: La Comunidad del Anillo",
+        "autor" => "J.R.R. Tolkien",
+        "genero" => "fantasia",
+        "paginas" => 423,
         "disponible" => true,
         "fechaAlta" => "2026-03-05"
     ],
     [
-        "id" => 4,
-        "titulo" => "Dune",
-        "autor" => "Frank Herbert",
-        "genero" => "Ciencia ficción",
-        "paginas" => 784,
-        "disponible" => true,
-        "fechaAlta" => "2026-04-22"
-    ],
-    [
         "id" => 5,
-        "titulo" => "El Hobbit",
-        "autor" => "J.R.R. Tolkien",
-        "genero" => "Fantasía",
-        "paginas" => 310,
-        "disponible" => false,
-        "fechaAlta" => "2026-05-12"
+        "titulo" => "Drácula",
+        "autor" => "Bram Stoker",
+        "genero" => "terror",
+        "paginas" => 416,
+        "disponible" => true,
+        "fechaAlta" => "2026-03-12"
     ],
     [
         "id" => 6,
-        "titulo" => "Crónica de una muerte anunciada",
-        "autor" => "Gabriel García Márquez",
-        "genero" => "Crónica",
-        "paginas" => 140,
-        "disponible" => true,
-        "fechaAlta" => "2026-06-18"
+        "titulo" => "Bajo la Misma Estrella",
+        "autor" => "John Green",
+        "genero" => "romance",
+        "paginas" => 304,
+        "disponible" => false,
+        "fechaAlta" => "2026-04-01"
     ],
     [
         "id" => 7,
-        "titulo" => "Fahrenheit 451",
-        "autor" => "Ray Bradbury",
-        "genero" => "Distopía",
-        "paginas" => 192,
+        "titulo" => "Crónicas de Narnia: El León, la Bruja y el Ropero",
+        "autor" => "C.S. Lewis",
+        "genero" => "fantasia",
+        "paginas" => 208,
         "disponible" => true,
-        "fechaAlta" => "2026-07-01"
+        "fechaAlta" => "2026-04-18"
     ],
     [
         "id" => 8,
-        "titulo" => "Estudio en escarlata",
-        "autor" => "Arthur Conan Doyle",
-        "genero" => "Policial",
-        "paginas" => 168,
-        "disponible" => false,
-        "fechaAlta" => "2026-08-14"
+        "titulo" => "It (Eso)",
+        "autor" => "Stephen King",
+        "genero" => "terror",
+        "paginas" => 1504,
+        "disponible" => true,
+        "fechaAlta" => "2026-05-22"
     ]
 ];

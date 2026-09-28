@@ -12,6 +12,10 @@ function buscarPorId(array $libros, int $id): ?array {
 }
 
 function filtrarPorGenero(array $libros, string $genero): array {
+    if ($genero === 'todos') {
+        return $libros;
+    }
+
     $libroGenero = [];
 
     foreach ($libros as $libro) {
@@ -23,6 +27,7 @@ function filtrarPorGenero(array $libros, string $genero): array {
 }
 
 function filtrarDisponibles(array $libros): array {
+
     $disponibles = [];
 
     foreach ($libros as $libro) {
@@ -34,6 +39,10 @@ function filtrarDisponibles(array $libros): array {
 }
 
 function calcularMediaPaginas(array $libros): float {
+    if (count($libros) === 0) {
+        return 0.0;
+    }
+
     $suma = 0;
 
     foreach ($libros as $libro) {
@@ -44,7 +53,12 @@ function calcularMediaPaginas(array $libros): float {
 }
 
 function obtenerLibroMasLargo(array $libros): ?array {
-    sort($libros);
+    $masLargo = null;
 
-    return $libros[count($libros) -1];
+    foreach ($libros as $libro) {
+        if ($masLargo === null || $masLargo['paginas'] < $libro['paginas']) {
+            $masLargo = $libro;
+        }
+    }
+    return $masLargo;
 }
