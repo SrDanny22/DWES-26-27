@@ -44,7 +44,8 @@ $tituloAutorSeguro = htmlspecialchars($tituloAutor, ENT_QUOTES, 'UTF-8');
         echo "Genero: " . $libro['genero'] . "<br>";
         echo "Paginas: " . $libro['paginas'] . "<br>";
         echo "Disponible: " . ($libro['disponible'] ? 'si' : 'no') . "<br>";
-        echo "Fecha Alta: " . $libro['fechaAlta'] . "<br><br>";
+        echo "Fecha Alta: " . $libro['fechaAlta'] . "<br>";
+        echo "<a href=libro.php?id=". $libro['id']. ">Ver libro</a><br><br>";
         }
 
         echo "Total de resultados: " . count($filtroGenero);
