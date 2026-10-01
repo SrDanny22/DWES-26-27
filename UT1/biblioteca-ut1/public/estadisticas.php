@@ -3,6 +3,8 @@
 require_once __DIR__ . '/../src/datos.php';
 require_once __DIR__ . '/../src/funciones.php';
 
+date_default_timezone_set('Europe/Madrid');
+
 $genero = $_GET['genero'] ?? 'todos';
 
 $disponible = $_GET['disponible'] ?? '';
@@ -37,6 +39,7 @@ $fecha = new DateTimeImmutable();
     $filtroGenero = buscarPorTexto(filtrarPorGenero($catalogo, $generoSeguro), $tituloAutorSeguro);
 
     $totalDisponible = 0;
+    $totalNoDisponble= 0;
 
     $libroMayor = obtenerLibroMasLargo($filtroGenero);
 
@@ -46,17 +49,20 @@ $fecha = new DateTimeImmutable();
         foreach ($filtroGenero as $libro) {
             if ($libro['disponible'] === true) {
                 $totalDisponible++;
+            } else {
+                $totalNoDisponble++;
             }
         }
 
         echo "Número total de libros: " . count($filtroGenero) . "<br>";
         echo "Numero total de disponibles: " . $totalDisponible . "<br>";
+        echo "Numero total de no disponibles: " . $totalNoDisponble . "<br>";
         echo "Media de páginas: " . calcularMedia($filtroGenero) . "<br><br>";
         echo "<h3>Libro con mayor número de paginas: </h3><br>";
         echo "Libro: " . $libroMayor['titulo'] . "<br>";
         echo "Páginas: " . $libroMayor['paginas'] . "<br><br>";
 
-        echo "Fecha del informe: " . $fecha->format('d/m/Y h:i');
+        echo "Fecha del informe: " . $fecha->format('d/m/Y - H:i');
         ?>
 </body>
 </html>

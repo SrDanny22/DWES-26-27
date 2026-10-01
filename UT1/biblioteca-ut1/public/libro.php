@@ -23,6 +23,12 @@ $idSeguro = htmlspecialchars($id, ENT_QUOTES, 'UTF-8');
     
     $filtroId = buscarPorId($catalogo, $idSeguro);
 
+    $fechaHoy = new DateTimeImmutable('today');
+
+    $fechaSimulada = $fechaHoy->modify('+15 days');
+
+    $fechaAlta = new DateTimeImmutable($filtroId['fechaAlta']);
+
     if ($filtroId === null) {
         echo "ID no encontrado";
     } else {
@@ -33,7 +39,13 @@ $idSeguro = htmlspecialchars($id, ENT_QUOTES, 'UTF-8');
             echo "Genero: " . $filtroId['genero'] . "<br>";
             echo "Paginas: " . $filtroId['paginas'] . "<br>";
             echo "Disponible: " . ($filtroId['disponible'] ? 'si' : 'no') . "<br>";
-            echo "Fecha Alta: " . $filtroId['fechaAlta'] . "<br><br>";
+            echo "Fecha Alta: " . $fechaAlta->format('d/m/Y') . "<br>";
+            if ($filtroId['disponible'] === true) {
+                echo "Fecha devolución: " . $fechaSimulada->format('d/m/Y') . "<br>";
+            }
+            echo "Dias que han pasado desde fecha alta: " . $fechaHoy->diff($fechaAlta)->days . " días<br><br>";
+            echo "<a href=public/index.php>Volver al catálogo</a>";
+
     }
 
 

@@ -80,3 +80,42 @@ function obtenerLibroMasLargo(array $libros): ?array {
 
     return $masLargo;
 }
+
+function ordenarPorTitulo(array $libros): array {
+    $ordenados = $libros;
+
+    $cantidad = count($ordenados);
+
+    for ($i=0; $i < $cantidad; $i++) { 
+        for ($j=0; $j < $cantidad - 1; $j++) { 
+            $tituloActual = strtolower($ordenados[$j]['titulo']);
+            $tituloSiguiente = strtolower($ordenados[$j + 1]['titulo']);
+
+            if ($tituloActual > $tituloSiguiente) {
+                $temporal = $ordenados[$j];
+                $ordenados[$j] = $ordenados[$j + 1];
+                $ordenados[$j + 1] = $temporal;
+            }
+        }
+    }
+    return $ordenados;
+}
+
+function ordenarPorPagina(array $libros): array {
+    $ordenados = $libros;
+    $cantidad = count($ordenados);
+
+    for ($i=0; $i < $cantidad; $i++) { 
+        for ($j=0; $j < $cantidad - 1; $j++) { 
+            $paginaActual = $ordenados[$j]['paginas'];
+            $paginaSiguiente = $ordenados[$j + 1]['paginas'];
+
+            if ($paginaActual > $paginaSiguiente) {
+                $temporal = $ordenados[$j];
+                $ordenados[$j] = $ordenados[$j + 1];
+                $ordenados[$j + 1] = $temporal;
+            }
+        }
+    }
+    return $ordenados;
+}
