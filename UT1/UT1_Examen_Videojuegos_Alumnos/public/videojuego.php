@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 require_once __DIR__ . '/../src/funciones.php';
@@ -12,38 +13,45 @@ $idInt = (int) $id;
 $videojuego = buscarPorId($videojuegos, $idInt);
 
 if ($videojuego === null) {
-    
-    ?>
+
+?>
     <!doctype html>
     <html lang="es">
+
     <head>
         <meta charset="utf-8">
         <title>Videojuego no encontrado</title>
+    </head>
+
+    <body>
         <p>No existe ningun videojuego con el id <?= $idInt ?>.</p>
         <a href="public/index.php">Volver al catálogo</a>
-    </head>
-    <body>
     </body>
+
     </html>
-    <?php
+<?php
     exit;
 }
 
 // Prepara las fechas y los valores que necesita la ficha.
-$fechaLanzamiento = new DateTimeImmutable($videojuego['fechaLanzamiento']);// De dónde saco la fecha??
+$fechaLanzamiento = new DateTimeImmutable($videojuego['fechaLanzamiento']); // De dónde saco la fecha??
 $hoy = new DateTimeImmutable('today');
 $diasTranscurridos = $hoy->diff($fechaLanzamiento)->days;
-$finNovedad = null;
+// Faltaba esto
+$finNovedad = $fechaLanzamiento->modify('+30 days');
+// Cálculo de estado para decidir si es novedad o catálogo
 $estado = '';
 
 // COMPLETAR los cálculos anteriores utilizando los datos del videojuego.
 ?>
 <!doctype html>
 <html lang="es">
+
 <head>
     <meta charset="utf-8">
     <title>Ficha del videojuego</title>
 </head>
+
 <body>
     <h1><?= htmlspecialchars($videojuego['titulo'] ?? '') ?></h1>
 
@@ -82,4 +90,5 @@ $estado = '';
 
     <p><a href="index.php">Volver al catálogo</a></p>
 </body>
+
 </html>

@@ -5,7 +5,6 @@ declare(strict_types=1);
 // Terminado
 function normalizarTexto(string $texto): string
 {
-
     return trim(strtolower($texto)); // Mira ver socio
 }
 
@@ -31,6 +30,7 @@ function filtrarPorGenero(array $videojuegos, string $genero): array
 
     $resultado = [];
     foreach ($videojuegos as $videojuego) {
+        // Cuidado con mayúsculas y mínusculas
         if ($videojuego['genero'] === $genero) {
             $resultado[] = $videojuego;
         }
@@ -48,6 +48,7 @@ function filtrarPorPlataforma(array $videojuegos, string $plataforma): array
 
     $resultado = [];
     foreach ($videojuegos as $videojuego) {
+        // Cuidado con mayúsculas y mínusculas
         if ($videojuego['plataforma'] === $plataforma) {
             $resultado[] = $videojuego;
         }
@@ -67,8 +68,8 @@ function buscarPorTexto(array $videojuegos, string $texto): array
     }
 
     foreach ($videojuegos as $videojuego) {
-        $titulo = normalizarTexto($videojuego['titulos']);
-        $estudio = normalizarTexto($videojuego['estuio']);
+        $titulo = normalizarTexto($videojuego['titulo']);
+        $estudio = normalizarTexto($videojuego['estudio']);
 
         // Esta función está implementada, pero su lógica no produce todos los resultados esperados.
         if (str_contains($titulo, $texto) || str_contains($estudio, $texto)) {
@@ -83,6 +84,7 @@ function buscarPorTexto(array $videojuegos, string $texto): array
 function ordenarVideojuegos(array $videojuegos, string $criterio): array
 {
     $criterio = normalizarTexto($criterio);
+    // $ordenados te lo complica, mejor todo con $videojuego
     $ordenados = $videojuegos;
     $cantidad = count($videojuegos);
 
