@@ -66,7 +66,14 @@ function filtrarActividades(
 ): array
 {
     // TODO 3: filtrar por nombre, categoría y plazas libres.
-    return [];
+
+    return array_filter(
+        $actividades,
+        fn (array $a): bool =>
+        ($texto === '' || str_contains(normalizarBusqueda($a['nombre']), normalizarBusqueda($texto))) &&
+        ($categoria === '' || str_contains(normalizarBusqueda($a['categoria']), normalizarBusqueda($categoria))) &&
+        (!$soloConPlazas || $a['libres'] > 0)
+    );
 }
 
 function ordenarActividades(array $actividades, string $orden): array
@@ -74,8 +81,10 @@ function ordenarActividades(array $actividades, string $orden): array
     // TODO 4: ordenar una copia según el criterio y desempatar por id.
     usort(
         $actividades,
-        fn(array $a, array $b): int => 
-            ($a[$orden] <=> $b[$orden]) === 0 ? $a['id'] <=> $b['id'] : $a[$orden],
+        fn(array $a, array $b): int =>
+        $orden === 'libres' ? 
+            (($a[$orden] <=> $b[$orden]) ?: ($a['id'] <=> $b['id'])) 
+            : ((normalizarBusqueda($a[$orden]) <=> normalizarBusqueda($b[$orden])) ?: $a['id'] <=> $b['id']),
     );
     return $actividades;
 }
@@ -86,7 +95,8 @@ function resumirActividades(array $actividades): array
         'cantidad' => count($actividades),
         'capacidad' => array_reduce(
             $actividades,
-            fn(int $c, array $a): int => $c + $a['plazas'], 0
+            fn(int $c, array $a): int => $c + $a['capacidad'], 
+            0
         ), // REVISAR: cuenta actividades, no plazas
         'ocupadas' => array_reduce(
             $actividades,
@@ -95,7 +105,7 @@ function resumirActividades(array $actividades): array
         ),
         'libres' => array_reduce(
             $actividades,
-            fn(int $s, array $a): int => $s + $a['ocupadas'],
+            fn(int $s, array $a): int => $s + $a['libres'],
             0,
             ), // TODO 6: sumar plazas libres
         'hayCompletas' => array_any(
@@ -146,15 +156,15 @@ function buscarPorId(array $actividades, int|string $id): ?array
 function monitorVisible(?string $monitor): string
 {
     // TODO 11: resolver el caso de monitor null.
-    return '';
+    return $monitor ?? 'Monitor no encontrado';
 }
 
 function inicioNombre(string $nombre): string
 {
-    return substr(limpiarEspacios($nombre), 0, 3);
+    return mb_substr(limpiarEspacios($nombre), 0, 3, 'UTF-8');
 }
 
 function codigoValido(string $codigo): bool
 {
-    return preg_match('/DEP-[0-9]+-[0-9]+/', $codigo) === 1;
+    return preg_match('/^DEP-\d{4}-\d{4}$/', $codigo) === 1;
 }
