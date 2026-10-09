@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 $catalogo = [
     [
         'id' => 1,
@@ -110,6 +112,7 @@ $catalogo = [
         'fechaAlta' => '2025-10-01',
     ],
 ];
+
 
 $libros = array_map(
     fn(array $a): string => $a['titulo'] . " - " . $a['paginas'] . " páginas",
