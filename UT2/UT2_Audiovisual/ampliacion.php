@@ -24,3 +24,12 @@ $primerAgotado = array_find_key(
     static fn(int $unidades): bool => $unidades <= 0
 );
 // TODO C2: indexar equipos por id y ordenarlos con uasort conservando las claves.
+// HECHO
+
+$equiposPorId = array_column($equipos, null, 'id');
+
+uasort(
+    $equiposPorId,
+    static fn(array $a, array $b): int =>
+        [$a['disponibles'], $a['id']] <=> [$b['disponibles'], $b['id']]
+);
