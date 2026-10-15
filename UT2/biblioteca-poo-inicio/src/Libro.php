@@ -19,4 +19,17 @@ final class Libro
     // Fase 3: título sin espacios en los extremos y valores por defecto si no es válido o las páginas no son positivas.
 
     // Fase 5: prestar(), devolver() y ficha().
+    public function prestar(): void {
+        $this->disponible = false;
+    }
+
+    public function devolver(): void {
+        $this->disponible = true;
+    }
+
+    public function ficha() : string {
+        $autor = $this->autor?->nombre ?? 'Sin autor';
+
+        return $this->titulo . ' / ' . $autor . ' / ' . $this->categoria->nombre . ' / ' . $this->paginas . ' páginas';
+    }
 }
