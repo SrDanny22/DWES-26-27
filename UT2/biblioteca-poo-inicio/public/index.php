@@ -25,7 +25,20 @@ $dune->prestar();
 $dune->devolver();
 // Añade textos a $mensajes; la vista los mostrará debajo del catálogo.
 // Termina devolviendo Dune para conservar el estado inicial del catálogo.
-$mensajes = [$dune->ficha(), $libros[3]->ficha()];
+$mensajes = [$dune->ficha(), $libros[3]->ficha(),];
+
+$alias = $dune;
+
+// $alias->prestar();
+
+$mensajes[] = 'Disponible: ' . ($alias === $dune ? 'true' : 'false');
+
+$autorDune = new Autor('Frank Herbert');
+$categoriaDune = new Categoria('Ciencia ficción');
+
+$libroDune = new Libro(10, 'Dune', 412, $autorDune, $categoriaDune, true);
+
+$mensajes[] = 'Disponible: ' . ($libroDune === $dune ? 'true' : 'false');
 
 // Lectura del formulario facilitada. La búsqueda conserva el texto escrito.
 $entrada = $_GET['q'] ?? '';
@@ -37,8 +50,20 @@ $orden = is_string($ordenEntrada)
     ? $ordenEntrada : 'paginas';
 
 // Fase 6.1: normaliza la búsqueda y filtra con array_filter.
-$busqueda = '';
+
+$busqueda = mb_strtolower(trim($entradaBusqueda), 'UTF-8');
+
 $visibles = $libros;
+
+// HACER
+// $visibles = array_filter(
+//     $visibles,
+//     fn (array $a): bool =>
+//         ($busqueda === '' || str_contains($a['titulo'], $busqueda))
+//         && ($a['disponible'] === true)
+// );
+
+
 
 // Fase 6.2: ordena $visibles mediante usort y <=>.
 
