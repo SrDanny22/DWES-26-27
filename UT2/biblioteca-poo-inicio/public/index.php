@@ -33,6 +33,8 @@ $alias = $dune;
 
 $mensajes[] = 'Disponible: ' . ($alias === $dune ? 'true' : 'false');
 
+
+
 $autorDune = new Autor('Frank Herbert');
 $categoriaDune = new Categoria('Ciencia ficción');
 
@@ -55,25 +57,43 @@ $busqueda = mb_strtolower(trim($entradaBusqueda), 'UTF-8');
 
 $visibles = $libros;
 
-// HACER
-// $visibles = array_filter(
-//     $visibles,
-//     fn (array $a): bool =>
-//         ($busqueda === '' || str_contains($a['titulo'], $busqueda))
-//         && ($a['disponible'] === true)
-// );
+$visibles = array_filter(
+    $visibles,
+    fn (Libro $libro): bool =>
+        ($busqueda === '' || str_contains(mb_strtolower($libro->titulo, 'UTF-8'), $busqueda))
+        && (!$soloDisponibles || $libro->disponible)
+);
 
 
 
 // Fase 6.2: ordena $visibles mediante usort y <=>.
+usort(
+    $visibles,
+    function (Libro $libroA, Libro $libroB) use ($orden): int {
+        if ($orden === 'paginas') {
+            return $libroA->paginas <=> $libroB->paginas;
+        }
+
+        return $libroA->titulo <=> $libroB->titulo;
+    } 
+);
 
 // Fase 6.3: resumen del catálogo completo, antes de filtrar.
 // Completa disponibles con array_filter y paginas con array_reduce.
-$resumen = ['total' => count($libros), 'disponibles' => 0, 'paginas' => 0];
+$resumen = [
+    'total' => count($libros),
+    'disponibles' => count(array_filter($libros, fn (Libro $libro): bool => $libro->disponible)),
+    'paginas' => array_reduce($libros, fn (int $total, Libro $libro): int => $total + $libro->paginas, 0),
+];
 
 // Fase 6.3: crea las fichas de los libros visibles con array_map.
-$etiquetas = [];
+$etiquetas = array_map(fn (Libro $libro): string => $libro->ficha(), $visibles);
 
 // Fase 6.3: busca los ids 30 y 999 con array_find y añade mensajes.
+$libro30 = array_find($libros, fn (Libro $libro): bool => $libro->id === 30);
+$mensajes[] = 'Encontrado: ' . ($libro30?->titulo ?? 'Libro no encontrado');
+
+$libro999 = array_find($libros, fn (Libro $libro): bool => $libro->id === 999);
+$mensajes[] = 'Encontrado: ' . ($libro999?->titulo ?? 'Libro no encontrado');
 
 require __DIR__ . '/../vista/catalogo.php';
