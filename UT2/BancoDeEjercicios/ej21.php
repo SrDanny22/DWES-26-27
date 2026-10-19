@@ -5,9 +5,9 @@
  * 
  * Conocer su posición: str_pos()
  * 
- * Comprobar un prefijo:
+ * Comprobar un prefijo: str_starts_with()
  * 
- * Comprobar un sufijo:
+ * Comprobar un sufijo: str_ends_with()
  * 
  * Validar un formato con patrón: preg_match()
  * 
