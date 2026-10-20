@@ -8,8 +8,7 @@ final class Libro
  public int $paginas = 0; // La propiedad $paginas esta inicializada a 0.
  public bool $disponible = true; // La propiedad $disponible esta inicializada a true.
 }
-$libro = new Libro();
-
+// $libro = new Libro();
 // Si leyera titulo inmediatamente despues de crear el objeto, daria error porque no esta inicializada y no tendría ningún valor.
 $libro->titulo = 'Solaris';
 $libro->paginas = 216;

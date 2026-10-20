@@ -19,9 +19,26 @@ final class Libro {
     public string $titulo;
     public bool $disponible;
 
-    public function __construct(string $titulo, bool $disponible)
+    public function __construct(string $titulo)
     {
         $this->titulo = $titulo;
-        $this->disponible = $disponible = true;
+        $this->disponible = true;
+    }
+
+    public function prestar(): void {
+        $this->disponible = false;
     }
 }
+
+$libro = new Libro('Dune');
+
+echo $libro->disponible ? 'true' : 'false';
+
+echo '<br>';
+
+$libro->prestar();
+
+echo $libro->disponible ? 'true' : 'false';
+
+
+// this y $this seria lo mismo, solo que en php se le pondría el $, y entre el . y el ->, es la manera para llamar a la propiedad o metodo.
