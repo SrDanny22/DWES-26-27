@@ -30,10 +30,19 @@ $objetos = array_map(fn (array $a): Libro => new Libro(
 $filtro = array_filter(
     $objetos,
     fn (Libro $l): bool =>
-        $l->titulo === $busqueda
+        str_contains(mb_strtolower($l->titulo, 'UTF-8'), $busqueda)
     );
 
-// $etiqueta = array_map(
-//     fn () =>
+$etiqueta = array_map(
+    fn (Libro $l): string =>
+        $l->titulo . ' - ' . $l->paginas . ' páginas',
+        $filtro
+);
 
-// );
+if (empty($etiqueta)) {
+    echo "Sin resultados";
+} else {
+    foreach ($etiqueta as $e) {
+        echo $e . "<br>";
+    }
+}
