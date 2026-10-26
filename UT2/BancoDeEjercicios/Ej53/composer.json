@@ -1,0 +1,9 @@
+{
+    "name": "aula/recursos",
+    "type": "project",
+    "autoload": {
+        "psr-4": {
+            "App\\": "src/"
+        }
+    }
+}
