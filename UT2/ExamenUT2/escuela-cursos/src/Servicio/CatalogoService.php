@@ -11,23 +11,19 @@ use InvalidArgumentException;
 
 final class CatalogoService
 {
-    public function __construct(private CursoRepository $repository)
-    {
-    }
+    public function __construct(private CursoRepository $repository) {}
 
     public function filtrar(
         string $texto = '',
         ?EstadoCurso $estado = null,
         bool $soloConPlazas = false
-    ): array
-    {
+    ): array {
         $texto = mb_strtolower(trim($texto), 'UTF-8');
 
         // TODO F1: filtra los cursos mediante array_filter.
         $filtrado = array_filter(
             $this->repository->todos(),
-            fn(Curso $e): bool =>
-                (str_contains($e->nombreNormalizado(), $texto)) &&
+            fn(Curso $e): bool => (str_contains($e->nombreNormalizado(), $texto)) &&
                 ($estado === null || $e->estado() === $estado) &&
                 ($soloConPlazas === false || ($e->estado() === EstadoCurso::Abierto && $e->plazasLibres() > 0))
         );
@@ -40,17 +36,11 @@ final class CatalogoService
         // TODO F2: ordena una copia mediante usort y un callback.
         $copiaCursos = $cursos;
 
+        // Está bien, pero se puede simplificar
         usort(
             $copiaCursos,
-            function (Curso $a, Curso $b): int {
-                $precioPlaza = $a->precioPlaza() <=> $b->precioPlaza();
-
-                if ($precioPlaza !== 0) {
-                    return $precioPlaza;
-                }
-
-                return $a->id() <=> $b->id();
-            }
+            fn(Curso $a, Curso $b): int => ($a->precioPlaza() <=> $b->precioPlaza())
+                ?: ($a->id() <=> $b->id())
         );
 
         return $copiaCursos;
@@ -60,8 +50,8 @@ final class CatalogoService
     {
         // TODO F3: array_map y arrow function.
         $etiquetas = array_map(
-            fn (Curso $e): string =>
-                $e->etiqueta($prefijo),
+            fn(Curso $e): string =>
+            $e->etiqueta($prefijo),
             $cursos
         );
 
@@ -78,7 +68,8 @@ final class CatalogoService
                 'libres' => $e->plazasLibres() + $carry['libres'],
                 'importeCentimos' => ($e->ocupadas() * $e->precioPlaza()) + $carry['importeCentimos']
             ],
-            ['libres' => 0, 'importeCentimos' => 0]
+            // Si $cursos está vacío cantidad no existe
+            ['cantidad' => 0, 'libres' => 0, 'importeCentimos' => 0]
         );
 
         return $resumen;
@@ -93,13 +84,13 @@ final class CatalogoService
 
         $candidatos = array_filter(
             $this->repository->todos(),
-            fn (Curso $curso): bool =>
-                $curso->estado() === EstadoCurso::Abierto
+            fn(Curso $curso): bool =>
+            $curso->estado() === EstadoCurso::Abierto
                 && $curso->plazasLibres() >= $plazas
         );
 
         $propuestas = array_map(
-            fn (Curso $curso): array => [
+            fn(Curso $curso): array => [
                 'id' => $curso->id(),
                 'importeCentimos' => $plazas * $curso->precioPlaza(),
                 'libresDespues' => $curso->plazasLibres() - $plazas
@@ -121,12 +112,12 @@ final class CatalogoService
             []
         );
 
+        // Ordenas $propuestas en lugar de resultado
         usort(
-            $propuestas,
-            fn (array $a, array $b): int =>
-                (($a['importeCentimos'] <=> $b['importeCentimos']) !== 0)
-                    ? ($a['importeCentimos'] <=> $b['importeCentimos'])
-                    : ($a['id'] <=> $b['id'])
+            $resultado,
+            fn(array $a, array $b): int => (($a['importeCentimos'] <=> $b['importeCentimos']) !== 0)
+                ? ($a['importeCentimos'] <=> $b['importeCentimos'])
+                : ($a['id'] <=> $b['id'])
         );
 
         return $resultado;
@@ -149,7 +140,7 @@ final class CatalogoService
     }
 
     // Opcional
-    
+
     // public function planificarReserva(int $plazas, int $presupuestoCentimos): array {
     //     if ($plazas <= 0 && $presupuestoCentimos < 0) {
     //         throw new InvalidArgumentException('No se puede completar la reserva');
@@ -162,5 +153,3 @@ final class CatalogoService
     //     return [];
     // }
 }
-
-
