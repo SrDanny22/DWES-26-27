@@ -16,6 +16,6 @@ class LibroPapel extends Libro {
     #[Override]
     public function costeReposicionCentimos(): int
     {
-        return $this->unidades() * $this->paginas();
+        return $this->unidades() * $this->paginas() * 5;
     }
 }
