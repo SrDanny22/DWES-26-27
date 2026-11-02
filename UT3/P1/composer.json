@@ -1,5 +1,7 @@
 {
- "autoload": {
- "psr-4": { "Daniel\\Biblioteca\\": "src/" }
- }
+    "autoload": {
+        "psr-4": {
+            "Daniel\\Biblioteca\\": "src/"
+        }
+    }
 }

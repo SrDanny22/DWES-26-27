@@ -7,7 +7,8 @@ namespace Daniel\Biblioteca\Modelo;
 use DateTimeImmutable;
 use InvalidArgumentException;
 
-abstract class Libro {
+abstract class Libro
+{
     public function __construct(
         private string $titulo,
         private string $autor,
@@ -17,8 +18,7 @@ abstract class Libro {
         private ?DateTimeImmutable $fechaAlta,
         private bool $destacado,
         private string $observaciones
-    )
-    {
+    ) {
         $this->titulo = self::normalizar($this->titulo);
         $this->autor = self::normalizar($this->autor);
         $this->genero = self::normalizar($this->genero);
@@ -49,39 +49,48 @@ abstract class Libro {
         }
     }
 
-    private static function normalizar(string $texto) {
+    private static function normalizar(string $texto)
+    {
         return trim($texto);
     }
 
-    public function titulo(): string {
+    public function titulo(): string
+    {
         return $this->titulo;
     }
 
-    public function autor(): string {
+    public function autor(): string
+    {
         return $this->autor;
     }
 
-    public function paginas(): int {
+    public function paginas(): int
+    {
         return $this->paginas;
     }
 
-    public function genero(): string {
+    public function genero(): string
+    {
         return $this->genero;
     }
 
-    public function unidades(): int {
+    public function unidades(): int
+    {
         return $this->unidades;
     }
 
-    public function fechaAlta(): ?DateTimeImmutable {
+    public function fechaAlta(): ?DateTimeImmutable
+    {
         return $this->fechaAlta;
     }
 
-    public function destacado(): bool {
+    public function destacado(): bool
+    {
         return $this->destacado;
     }
 
-    public function observaciones(): string {
+    public function observaciones(): string
+    {
         return $this->observaciones;
     }
 
