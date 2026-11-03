@@ -7,12 +7,12 @@ function e(string $texto): string {
 $busqueda = '';
 $error = '';
 
-if (isset($_GET['q'])) {
-    if (is_array($_GET['q'])) {
-        $error = 'Entrada no válida.';
-    } else {
-        $busqueda = trim((string)$_GET['q']);
-    }
+$entrada = $_GET['q'] ?? '';
+
+if (is_string($entrada)) {
+    $busqueda = trim($entrada);
+} else {
+    $error = 'Entrada no válida.';
 }
 
-include __DIR__ . '/formulario.phtml';
+include __DIR__ . '/formulario.php';
