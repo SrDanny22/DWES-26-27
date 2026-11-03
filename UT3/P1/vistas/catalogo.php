@@ -42,13 +42,17 @@
    <button type="submit">Buscar</button>
  </form>
 
+ <p>
+   <a href="alta.php">Dar de alta un libro</a> |
+   <a href="index.php">Ver catálogo completo</a>
+ </p>
+
 <br>
 
+ <?php if ($filas === []): ?>
+   <p>No hay libros que coincidan</p>
+ <?php else: ?>
  <table border="1">
-   <?php if ($filas === []): ?>
-      <p>No hay libros</p>";
-      
-   <?php else: ?>
    <thead>
       <tr>
          <th>Título</th>
@@ -67,10 +71,10 @@
             echo "<td>" . htmlspecialchars($fila['titulo'], ENT_QUOTES | ENT_SUBSTITUTE, "UTF-8") . "</td>";
             echo "<td>" . htmlspecialchars($fila['autor'], ENT_QUOTES | ENT_SUBSTITUTE, "UTF-8") . "</td>";
             echo "<td>" . htmlspecialchars($fila['genero'], ENT_QUOTES | ENT_SUBSTITUTE, "UTF-8") . "</td>";
-            echo "<td>" . htmlspecialchars($fila['tipo'], ENT_QUOTES | ENT_SUBSTITUTE, "UTF-8") . "</td>";
+            echo "<td>" . htmlspecialchars(ucfirst($fila['tipo']), ENT_QUOTES | ENT_SUBSTITUTE, "UTF-8") . "</td>";
             echo "<td>" . $fila['paginas'] . "</td>";
             echo "<td>" . $fila['unidades'] . "</td>";
-            echo "<td>" . $fila['costeCentimos'] / 100 . "€</td>";
+            echo "<td>" . number_format($fila['costeCentimos'] / 100, 2, ',', '.') . " €</td>";
             echo "</tr>";
          }
       
@@ -87,7 +91,7 @@
  <h3>Páginas</h3>
  <p><?= $resumen['paginas'] ?></p>
  <h3>Coste total</h3>
- <p><?= $resumen['costeCentimos'] / 100 ?>€</p>
+ <p><?= number_format($resumen['costeCentimos'] / 100, 2, ',', '.') ?> €</p>
 </body>
 
 </html>
