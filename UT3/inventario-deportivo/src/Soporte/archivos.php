@@ -59,7 +59,24 @@ function inspeccionarImagen(array $archivos): array
     if ($r['error'] !== null || $r['archivo'] === null) { return $r; }
     $a = $r['archivo'];
     // COMPLETAR 6. Tamaño, temporal legible y MIME. No mover aquí el archivo.
-    return ['archivo' => null, 'error' => 'Falta completar la validación de la imagen.'];
+    if ($a['size'] < 1 || $a['size'] > 2097152) {
+        return ['archivo' => null, 'error' => 'El archivo debe tener entre 1 y 2 097 152 bytes.'];
+    }
+
+    if (!is_file($a['tmp_name']) || !is_readable($a['tmp_name'])) {
+        return ['archivo' => null, 'error' => 'No es un archivo o no se puede leer.'];
+    }
+
+    $detector = new finfo(FILEINFO_MIME_TYPE);
+    $mime = $detector->file($a['tmp_name']);
+
+    if ($mime === false || !array_key_exists($mime, MIME_IMAGENES)) {
+        return ['archivo' => null, 'error' => 'El archivo no es una imagen JPEG, PNG o WebP.'];
+    }
+
+    $a["extension"] = MIME_IMAGENES[$mime];
+
+    return ['archivo' => $a, 'error' => null];
 }
 
 // Proporcionado. Recibe una extensión ya obtenida de MIME_IMAGENES.
