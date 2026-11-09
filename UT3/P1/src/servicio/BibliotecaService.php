@@ -41,7 +41,7 @@ class BibliotecaService
                 (!$soloDestacados || $l->destacado())
         );
 
-        return $filtro;
+        return array_values($filtro);
     }
     public function filas(array $libros): array
     {
@@ -53,7 +53,7 @@ class BibliotecaService
                 "genero" => $l->genero(),
                 "tipo" => $l->getTipo(),
                 "unidades" => $l->unidades(),
-                "fechaAlta" => $l->fechaAlta()?->format('Y-m-D') ?? "Sin fecha",
+                "fechaAlta" => $l->fechaAlta()?->format('Y-m-d') ?? "Sin fecha",
                 "destacado" => $l->destacado(),
                 "observaciones" => $l->observaciones(),
                 "costeCentimos" => $l->costeReposicionCentimos(),
