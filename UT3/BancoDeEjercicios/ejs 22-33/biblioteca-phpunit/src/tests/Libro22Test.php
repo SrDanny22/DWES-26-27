@@ -3,7 +3,7 @@
 use App\Model\Libro;
 use PHPUnit\Framework\TestCase;
 
-class TestLibro extends TestCase
+class Libro22Test extends TestCase
 {
     public function testConservaTitulo(): void
     {
