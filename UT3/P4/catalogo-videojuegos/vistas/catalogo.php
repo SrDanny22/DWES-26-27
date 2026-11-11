@@ -29,7 +29,7 @@ use function App\Soporte\e;
         <label for="q">Título o estudio</label>
         <input type="text" name="q" id="q" value="">
 
-        <label for="genero">Genero</label>
+        <label for="genero">Género</label>
         <select name="genero" id="genero">
             <option value="">Todos</option>
             <option value="aventura">Aventura</option>

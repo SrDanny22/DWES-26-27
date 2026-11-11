@@ -38,7 +38,9 @@ final class CaratulaControlador
             exit;
         }
         // COMPLETAR 7. Cabeceras y envío del archivo validado.
-
+        header('Content-Type: ' . $mime);
+        header('X-Content-Type-Options: nosniff');
+        readfile($ruta);
         exit;
     }
 }

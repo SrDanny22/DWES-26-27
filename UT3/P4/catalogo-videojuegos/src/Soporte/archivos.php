@@ -90,11 +90,19 @@ function inspeccionarCaratula(array $archivos): array
     }
 
     if (!is_file($a['tmp_name']) || !is_readable($a['tmp_name'])) {
-        return ['archivo' => null, 'error' => 'El archivo no se puede leer.'];
+        return ['archivo' => null, 'error' => 'No es un archivo o no se puede leer.'];
     }
 
+    $detector = new finfo(FILEINFO_MIME_TYPE);
+    $mime = $detector->file($a['tmp_name']);
+
+    if ($mime === false || !array_key_exists($mime, MIME_CARATULAS)) {
+        return ['archivo' => null, 'error' => 'El archivo no es jpg, png o webp'];
+    }
+
+    $a['extension'] = MIME_CARATULAS[$mime];
     
-    return ['archivo' => null, 'error' => 'Falta completar la validación de la carátula.'];
+    return ['archivo' => $a, 'error' => null];
 }
 
 // Proporcionado. Recibe una extensión ya obtenida de MIME_CARATULAS.
@@ -112,7 +120,9 @@ function prepararDestino(string $extension): array
 
     try {
         // COMPLETAR 6. Nombre aleatorio y extensión validada.
-        $nombre = '';
+        $bytes = random_bytes(16);
+        $base = bin2hex($bytes);
+        $nombre = $base . '.' . $extension;
     } catch (Throwable $error) {
         throw new RuntimeException('No se ha podido preparar el nombre de la carátula.', 0, $error);
     }

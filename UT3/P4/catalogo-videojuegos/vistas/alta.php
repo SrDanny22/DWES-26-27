@@ -46,8 +46,10 @@ use function App\Soporte\e;
             <label for="fechaLanzamiento">Fecha de lanzamiento (YYYY-MM-DD)</label>
             <input type="text" name="fechaLanzamiento" id="fechaLanzamiento">
 
-            <label for="caratula">Caratula</label>
-            <input type="file" name="caratula" id="caratula">
+            <label for="caratula">Carátula</label>
+            <input type="file" name="caratula" id="caratula" accept="image/jpeg,image/png,image/webp">
+
+            <button type="submit">Guardar videojuego</button>
          </form>
 
     <?php else: ?>
