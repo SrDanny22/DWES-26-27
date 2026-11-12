@@ -5,6 +5,7 @@ declare(strict_types=1);
 use PHPUnit\Framework\TestCase;
 
 use function App\Soporte\inspeccionarCaratula;
+use function PHPUnit\Framework\assertNull;
 
 final class CaratulaTemporalTest extends TestCase
 {
@@ -21,13 +22,18 @@ final class CaratulaTemporalTest extends TestCase
         file_put_contents($this->temporal, 'esto no es una imagen');
     }
 
-    
+    public function testInspeccionarCaratula(): void {
+        $caratula = inspeccionarCaratula($this->entradaArchivo());
+
+        $this->assertNull($caratula['archivo']);
+        $this->assertNotNull($caratula['error']);
+    }
 
     protected function tearDown(): void {
         if ($this->temporal !== null && file_exists($this->temporal)) {
             unlink($this->temporal);
+            $this->assertFalse(file_exists($this->temporal));
         }
-
     }
 
     // Proporcionado. Representa el temporal como entrada de inspeccionarCaratula.
