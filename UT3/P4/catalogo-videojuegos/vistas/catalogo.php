@@ -45,7 +45,7 @@ use function App\Soporte\e;
         <?php if ($videojuegos === []): ?>
             <p>No hay videojuegos que coincidan</p>
         <?php else: ?>
-            <table>
+            <table border="1">
                 <thead>
                     <tr>
                         <th>Título</th>
