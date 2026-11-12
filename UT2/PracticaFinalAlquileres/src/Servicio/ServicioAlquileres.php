@@ -2,7 +2,12 @@
 
 declare(strict_types=1);
 
-class ServicioAlquileres {
+namespace Clase\Alquileres\Servicio;
+
+use Clase\Alquileres\Modelo\{Alquiler, EstadoAlquiler};
+
+class ServicioAlquileres
+{
     private array $alquileres;
 
     public function __construct(array $alquileres)
@@ -10,28 +15,33 @@ class ServicioAlquileres {
         $this->alquileres = $alquileres;
     }
 
-    public function todos(): array {
+    public function todos(): array
+    {
         return $this->alquileres;
     }
 
 
-    private function normalizar(string $texo): string {
+    private function normalizar(string $texo): string
+    {
         return mb_strtolower(trim($texo), 'UTF-8');
     }
 
-    public function consultar(string $texto = '', ?EstadoAlquiler $estado = null): array {
+    public function consultar(string $texto = '', ?EstadoAlquiler $estado = null): array
+    {
         $consulta = array_filter(
             $this->alquileres,
-            fn (Alquiler $a): bool =>
-                (str_contains($this->normalizar($a->cliente()), $this->normalizar($texto))) &&
+            fn(Alquiler $a): bool => (str_contains($this->normalizar($a->cliente()), $this->normalizar($texto))) &&
                 ($estado === null || $estado === $a->estado())
-                
+
         );
 
+        // Falta desempatar por id -0,25
         usort(
             $consulta,
-            fn (Alquiler $a, Alquiler $b): int =>
-                $a->importe() <=> $b->importe());
+            fn(Alquiler $a, Alquiler $b): int => ($a->importe() <=> $b->importe()) === 0
+                ? $a->id() <=> $b->id()
+                : $a->importe() <=> $b->importe()
+        );
 
         if (count($consulta) === 0) {
             return [];
@@ -39,16 +49,18 @@ class ServicioAlquileres {
         return array_values($consulta);
     }
 
-    public function resumir(array $alquileres): array {
+    public function resumir(array $alquileres): array
+    {
         $total = array_reduce(
             $alquileres,
             fn(int $carry, Alquiler $importe) => $importe->importe() + $carry,
-            0);
+            0
+        );
 
         if (count($alquileres) === 0) {
             return [0, 0];
         }
-        
+
         return [count($alquileres), $total];
     }
 }

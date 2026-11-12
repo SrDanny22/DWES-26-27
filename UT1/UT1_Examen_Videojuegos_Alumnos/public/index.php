@@ -32,6 +32,7 @@ $resultados = $videojuegos;
 // Aplica sobre $resultados los filtros, la búsqueda y la ordenación solicitados.
 $filtrarGenero = filtrarPorPlataforma(filtrarPorGenero($resultados, $generoSeguro), $plataformaSeguro);
 
+// No, $q va a tener un valor que tú tienes que busacr el título o en estudio.
 if ($qSeguro === "titulo" || $qSeguro === 'estudio') {
     $filtrarGenero = buscarPorTexto($filtrarGenero, $qSeguro);
 }
@@ -39,15 +40,21 @@ if ($qSeguro === "titulo" || $qSeguro === 'estudio') {
 // Ordena las dos colecciones anteriores manteniendo la relación entre claves y valores.
 $filtrarGenero = ordenarVideojuegos($filtrarGenero, $orden);
 
+// Si no recordabas ordenar, pues las guardas para que no falle y ya.
+$plataformasOrdenadas = $plataformas;
+$ventasOrdenadas = $ventasSemana;
+
 $timestampConsulta = time();
 $fechaConsulta = date('d/m/Y H:i', $timestampConsulta); // COMPLETAR
 ?>
 <!doctype html>
 <html lang="es">
+
 <head>
     <meta charset="utf-8">
     <title>Catálogo de videojuegos</title>
 </head>
+
 <body>
     <h1>Catálogo de videojuegos</h1>
 
@@ -92,10 +99,14 @@ $fechaConsulta = date('d/m/Y H:i', $timestampConsulta); // COMPLETAR
         <?php foreach ($filtrarGenero as $videojuego): ?>
             <li>
                 <!-- Construye aquí el enlace a videojuego.php enviando su id. -->
-                <?= htmlspecialchars($videojuego['titulo'])?>
+                <!-- Por qué al final no has puesto nada? -->
+                <a href="videojuego.php?id=<?= $videojuego['id'] ?>">
+                    <?= htmlspecialchars($videojuego['titulo']) ?>
+                </a>
+                <?= htmlspecialchars($videojuego['titulo']) ?>
                 · <?= number_format($videojuego['precio'], 2, ',', '.') ?> €
                 · <?= $videojuego['puntuacion'] ?>/10
-                
+
             </li>
         <?php endforeach; ?>
     </ul>
@@ -113,8 +124,9 @@ $fechaConsulta = date('d/m/Y H:i', $timestampConsulta); // COMPLETAR
             <li><?= htmlspecialchars((string) $codigo) ?>: <?= $ventas ?></li>
         <?php endforeach; ?>
     </ul>
-    
+
 
     <p>Consulta generada: <?= htmlspecialchars($fechaConsulta) ?></p>
 </body>
+
 </html>

@@ -8,10 +8,7 @@ use Daniel\Biblioteca\Modelo\Libro;
 
 class BibliotecaService
 {
-    public function __construct(private array $libros)
-    {
-
-    }
+    public function __construct(private array $libros) {}
 
     public function todos(): array
     {
@@ -22,7 +19,8 @@ class BibliotecaService
         $this->libros[] = $libro;
     }
 
-    private static function normalizar(string $texto): string {
+    private static function normalizar(string $texto): string
+    {
         return mb_strtolower(trim($texto));
     }
 
@@ -34,17 +32,16 @@ class BibliotecaService
     ): array {
         $texto = self::normalizar($q);
 
-       $filtro = array_filter(
-        $this->todos(),
-        fn (Libro $l): bool =>
-            (str_contains(self::normalizar($l->titulo()), $texto) ||
-            str_contains(self::normalizar($l->autor()), $texto)) &&
-            ($genero === '' || $l->genero() === $genero) &&
-            ($tipo === '' || $l->getTipo() === $tipo) &&
-            (!$soloDestacados || $l->destacado())
-       );
+        $filtro = array_filter(
+            $this->todos(),
+            fn(Libro $l): bool => (str_contains(self::normalizar($l->titulo()), $texto) ||
+                str_contains(self::normalizar($l->autor()), $texto)) &&
+                ($genero === '' || $l->genero() === $genero) &&
+                ($tipo === '' || $l->getTipo() === $tipo) &&
+                (!$soloDestacados || $l->destacado())
+        );
 
-       return array_values($filtro);
+        return array_values($filtro);
     }
     public function filas(array $libros): array
     {
@@ -61,7 +58,7 @@ class BibliotecaService
                 "observaciones" => $l->observaciones(),
                 "costeCentimos" => $l->costeReposicionCentimos(),
             ],
-        $libros
+            $libros
         );
 
         return $filas;
@@ -70,7 +67,7 @@ class BibliotecaService
     {
         $resumen = array_reduce(
             $libros,
-            fn (array $carry, Libro $l) => [
+            fn(array $carry, Libro $l) => [
                 'titulos' => ++$carry['titulos'],
                 'unidades' => $carry['unidades'] + $l->unidades(),
                 'paginas' => $l->paginas() + $carry['paginas'],

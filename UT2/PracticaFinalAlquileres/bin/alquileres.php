@@ -2,11 +2,16 @@
 
 declare(strict_types=1);
 
+require_once dirname(__DIR__) . '/vender/autoload.php';
+
+use Clase\Alquileres\Modelo\{Alquiler, AlquilerBicicleta, AlquilerPatinete, EstadoAlquiler};
+use Clase\Alquileres\Servicio\ServicioAlquileres;
+
 $alquileres = [
-    new AlquilerBicicleta(501, 'Lucía Torres', 2, EstadoAlquiler:: Reservado),
-    new AlquilerPatiente(502, 'Alez Ruiz', 2, EstadoAlquiler:: Activo),
-    new AlquilerBicicleta(503, 'Óscar Gil', 3, EstadoAlquiler:: Finalizado),
-    new AlquilerPatiente(504, 'Lucía Molina', 1, EstadoAlquiler:: Reservado)
+    new AlquilerBicicleta(501, 'Lucía Torres', 2, EstadoAlquiler::Reservado),
+    new AlquilerPatinete(502, 'Alez Ruiz', 2, EstadoAlquiler::Activo),
+    new AlquilerBicicleta(503, 'Óscar Gil', 3, EstadoAlquiler::Finalizado),
+    new AlquilerPatinete(504, 'Lucía Molina', 1, EstadoAlquiler::Reservado)
 ];
 
 $servicio = new ServicioAlquileres($alquileres);
