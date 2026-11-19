@@ -14,7 +14,7 @@
 <form action="preferencias.php" method="post">
     <label for="espaciado">Espaciado</label>
     <select name="espaciado" id="espaciado">
-        <option value="compactado">Compactado</option>
+        <option value="compacto">Compactado</option>
         <option value="amplio">Amplio</option>
     </select>
 

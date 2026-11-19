@@ -72,6 +72,18 @@ body.oscuro a {
     color: #a7eef2;
 }
 
-body.espaciado {
-    padding-block: 20px;
+body.compacto {
+    padding-block: 0;
+}
+
+body.compacto .libros li {
+    padding-block: .1rem;
+}
+
+body.amplio {
+    padding-block: 4rem;
+}
+
+body.amplio .libros li {
+    padding-block: 1.5rem;
 }
