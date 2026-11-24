@@ -12,7 +12,13 @@ function iniciarSesion(): void
     session_start([
         'cookie_path' => '/',
         'cookie_httponly' => true,
-        'cookie_samesite' => 'lax',
+        'cookie_samesite' => 'Lax',
         'cookie_secure' => false
     ]);
+}
+
+function flash(): ?string {
+    $aviso = $_SESSION['flash'] ?? null;
+    unset($_SESSION['flash']);
+    return $aviso;
 }

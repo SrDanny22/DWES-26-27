@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 namespace App\Controlador;
@@ -10,6 +11,7 @@ abstract class Controlador
     protected function vista(string $nombre, array $datos = []): void
     {
         extract($datos, EXTR_SKIP);
+        $aviso = $_SERVER['REQUEST_METHOD'] === 'GET' ? \App\Soporte\flash() : null;
         $tema = ($_COOKIE['tema'] ?? null) === 'oscuro' ? 'oscuro' : 'claro';
         $espaciado = ($_COOKIE['espaciado'] ?? null) === 'compacto' ? 'compacto' : 'amplio';
         require dirname(__DIR__, 2) . '/vistas/cabecera.php';
