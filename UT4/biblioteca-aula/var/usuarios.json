@@ -1,0 +1,9 @@
+[
+    {
+        "id": 1,
+        "nombre": "Daniel",
+        "email": "daniel@correo.com",
+        "passwordHash": "$2y$12$bAMYSpBt5kuDZsFZ9KwLWei6RN76oQn4kz\/O73bEgYA3OwaIOLxau",
+        "rol": "ROLE_USER"
+    }
+]
