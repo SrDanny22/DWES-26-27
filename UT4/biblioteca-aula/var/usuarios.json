@@ -5,5 +5,12 @@
         "email": "daniel@correo.com",
         "passwordHash": "$2y$12$bAMYSpBt5kuDZsFZ9KwLWei6RN76oQn4kz\/O73bEgYA3OwaIOLxau",
         "rol": "ROLE_USER"
+    },
+    {
+        "id": 2,
+        "nombre": "Chunchunmaru",
+        "email": "chunchunmaru@correo.com",
+        "passwordHash": "$2y$12$skNtD7KQPSi.GWBBwjN7C.j6SaA.bVa4D0syDv9TcMF5UOy2E2r7u",
+        "rol": "ROLE_USER"
     }
 ]
